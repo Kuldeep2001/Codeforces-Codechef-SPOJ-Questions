@@ -1,4 +1,4 @@
-// https://codeforces.com/problemset/problem/1629/B
+// https://codeforces.com/problemset/problem/1739/B
 // by Kuldeep Soni
 #include <bits/stdc++.h>
 #include <chrono>
@@ -57,7 +57,6 @@ template <class T> void _print(multiset <T> v);
 template <class T, class V> void _print(pair <T, V> p) { cerr << "{"; _print(p.F); cerr << ","; _print(p.S); cerr << "}"; }
 template <class T> void _print(vector <T> v) { cerr << "[ "; for (T i : v) { _print(i); cerr << " "; } cerr << "]"; }
 template <class T> void _print(set <T> v) { cerr << "[ "; for (T i : v) { _print(i); cerr << " "; } cerr << "]"; }
-template <class T> void _print(set <T, greater<T>> v) { cerr << "[ "; for (T i : v) { _print(i); cerr << " "; } cerr << "]"; }
 template <class T> void _print(deque <T> v) { cerr << "[ "; for (T i : v) { _print(i); cerr << " "; } cerr << "]"; }
 template <class T> void _print(multiset <T> v) { cerr << "[ "; for (T i : v) { _print(i); cerr << " "; } cerr << "]"; }
 template <class T, class V> void _print(map <T, V> v) { cerr << "[ "; for (auto i : v) { _print(i); cerr << " "; } cerr << "]"; }
@@ -65,29 +64,31 @@ template <class T> void _print(priority_queue<T> g){ cerr << " ["; while(!g.empt
 
 void solve()
 {
-    bitset<1'000'001> bt(0);
+    int n;
+    cin >> n;
+    vector<int> arr(n);
+    for(int i = 0; i < n; ++i)
+        cin >> arr[i];
 
-    set<int,greater<int>> my_st;
-    int n,c;
-    cin >> n >> c;
-    fr(i,n){
-        int x;
-        cin >> x;
-        my_st.insert(x);
-        bt[x] = 1;
-    }
-    deb(my_st);
-
-    for(auto it = my_st.begin(); it != --my_st.end();)
+    int curr_sum = arr[0];
+    // cout << curr_sum << " ";
+    for(int i = 1; i < n; ++i)
     {
-        auto x = *it;
-        for(auto it2 = ++it; it2 != my_st.end(); it2++)
+        if(arr[i] != 0 && curr_sum-arr[i]>=0)
         {
-            auto y = *it2;
-            int toFind = x/y;
-            if(my_st.find(toFind) != my_st.end())
+            cout << "-1\n";
+            return;
         }
+        curr_sum += arr[i];
     }
+
+    curr_sum = 0;
+    for(int i = 0; i < n; ++i)
+    {
+        curr_sum += arr[i];
+        cout << curr_sum << " ";
+    }
+    cout << "\n";
 }
 
 int main() {
